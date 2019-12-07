@@ -1,0 +1,711 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{refactoring}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsection{Refactoring}\label{refactoring}
+
+\subsubsection{change half\_matrix to all adjacency
+matrix}\label{change-half_matrix-to-all-adjacency-matrix}
+
+\subsubsection{add visited vector of
+nodes}\label{add-visited-vector-of-nodes}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}  
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{def} \PY{n+nf}{initialize}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} N = \PYZsh{} of nodes   }
+            \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} 알고리즘 맨 처음 half matrix와 T matrix를 초기화함 (example에 따라서)  }
+            
+            \PY{c+c1}{\PYZsh{}initialize node lists}
+            \PY{n}{nodelist} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}  
+                \PY{n}{nodelist} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{i}\PY{p}{]} 
+            
+            \PY{c+c1}{\PYZsh{}initialize half matrix by networkx}
+            \PY{n}{half\PYZus{}mat} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}   
+            
+            
+            \PY{c+c1}{\PYZsh{}initialize T matrix by number of nodes  }
+            \PY{n}{t\PYZus{}mat} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{full}\PY{p}{(}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{N}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}   
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{nodelist}\PY{p}{)}\PY{p}{)}\PY{p}{:}  
+                \PY{n}{t\PYZus{}mat}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{2}  \PY{c+c1}{\PYZsh{}step2, assign routes between start node zero and each other node }
+                
+            \PY{c+c1}{\PYZsh{}initialize demand vector}
+            \PY{n}{demand} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{}각각 node 0,1,2,3,4를 방문 시 demand  }
+            
+            \PY{k}{return} \PY{n}{half\PYZus{}mat}\PY{p}{,} \PY{n}{t\PYZus{}mat}\PY{p}{,} \PY{n}{demand}  
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{calculate\PYZus{}net\PYZus{}saving}\PY{p}{(}\PY{n}{half\PYZus{}mat}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} Half matrix를 이용해서 Net saving 행렬 계산}
+            \PY{c+c1}{\PYZsh{} Sij = C0i + C0j \PYZhy{} Cij }
+            \PY{c+c1}{\PYZsh{} 예외처리 필수 }
+            
+            \PY{n}{net\PYZus{}saving\PYZus{}mat} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{full}\PY{p}{(}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{N}\PY{p}{)}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}   
+            
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{if} \PY{p}{(}\PY{n}{half\PYZus{}mat}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{!=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1} \PY{o}{\PYZam{}} \PY{n}{half\PYZus{}mat}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{o}{!=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1} \PY{o}{\PYZam{}} \PY{n}{half\PYZus{}mat}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{o}{!=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}  
+                        \PY{n}{net\PYZus{}saving\PYZus{}mat}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{half\PYZus{}mat}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{+} \PY{n}{half\PYZus{}mat}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{half\PYZus{}mat}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]}  
+                    \PY{k}{else}\PY{p}{:}
+                        \PY{k}{continue}  
+            
+            \PY{k}{return} \PY{n}{net\PYZus{}saving\PYZus{}mat}    
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{def} \PY{n+nf}{max\PYZus{}net\PYZus{}saving}\PY{p}{(}\PY{n}{half\PYZus{}mat}\PY{p}{,} \PY{n}{t\PYZus{}mat}\PY{p}{,} \PY{n}{net\PYZus{}saving\PYZus{}mat}\PY{p}{,} \PY{n}{demand}\PY{p}{,} \PY{n}{N}\PY{p}{,}  \PY{n}{Q}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} constraint의 경우 3가지의 conditions와, unconstraint의 경우 2가지의 conditions를 만족하면서 net saving}
+             \PY{c+c1}{\PYZsh{} 이 가장 큰 index 반환   }
+             
+             \PY{c+c1}{\PYZsh{} step5의 3가지 조건 (or 2가지 조건) 을 만족하는 (i,j) 쌍을 모두 받아와야함  }
+             \PY{c+c1}{\PYZsh{} 받아온 (i,j) 중에서 net saving이 가장 큰 경우에 t\PYZus{}mat을 변형하고 반환하기}
+             
+             \PY{c+c1}{\PYZsh{} dfs 탐색을 위해 change t\PYZus{}mat to all adjacency matrix }
+             \PY{c+c1}{\PYZsh{} 아래처럼 해야 포인터 참조 안함 }
+             \PY{c+c1}{\PYZsh{}indices = (t\PYZus{}mat != 0)}
+             \PY{n}{adjacency} \PY{o}{=} \PY{n}{make\PYZus{}adjacency\PYZus{}mat}\PY{p}{(}\PY{n}{t\PYZus{}mat}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} checking three conditions }
+             \PY{n}{cells} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}  
+                     \PY{n}{t\PYZus{}temp} \PY{o}{=} \PY{n}{change\PYZus{}t\PYZus{}mat}\PY{p}{(}\PY{n}{t\PYZus{}mat}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{)}
+                     \PY{n}{tmp\PYZus{}adjacency} \PY{o}{=} \PY{n}{make\PYZus{}adjacency\PYZus{}mat}\PY{p}{(}\PY{n}{t\PYZus{}temp}\PY{p}{)}
+                     
+                     \PY{k}{if} \PY{p}{(}\PY{n}{t\PYZus{}mat}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0} \PY{o+ow}{and} \PY{n}{t\PYZus{}mat}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{)} \PY{o+ow}{and} \PY{n}{check\PYZus{}routes}\PY{p}{(}\PY{n}{adjacency}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{)} \PY{o+ow}{and} \PY{n}{check\PYZus{}capacity}\PY{p}{(}\PY{n}{tmp\PYZus{}adjacency}\PY{p}{,} \PY{n}{demand}\PY{p}{,} \PY{n}{Q}\PY{p}{)}\PY{p}{:}  
+                         \PY{n}{cells} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{p}{]} \PY{c+c1}{\PYZsh{} push   }
+          
+             \PY{c+c1}{\PYZsh{}cells 중에서 net saving이 가장 큰 순서쌍 찾기}
+             \PY{n}{max\PYZus{}i} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}  
+             \PY{n}{max\PYZus{}j} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}   
+             \PY{n}{max\PYZus{}net\PYZus{}saving} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{10000}
+             
+             \PY{k}{for} \PY{n}{idx} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{cells}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{i} \PY{o}{=} \PY{n}{cells}\PY{p}{[}\PY{n}{idx}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{j} \PY{o}{=} \PY{n}{cells}\PY{p}{[}\PY{n}{idx}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} 
+                 \PY{k}{if} \PY{n}{net\PYZus{}saving\PYZus{}mat}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{max\PYZus{}net\PYZus{}saving}\PY{p}{:}
+                     \PY{n}{max\PYZus{}i} \PY{o}{=} \PY{n}{i}
+                     \PY{n}{max\PYZus{}j} \PY{o}{=} \PY{n}{j}
+                     \PY{n}{max\PYZus{}net\PYZus{}saving} \PY{o}{=} \PY{n}{net\PYZus{}saving\PYZus{}mat}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]}
+             
+             \PY{c+c1}{\PYZsh{} t\PYZus{}mat과 net\PYZus{}saving\PYZus{}mat을 변형}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max\PYZus{}i: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{max\PYZus{}i}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max\PYZus{}j: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{max\PYZus{}j}\PY{p}{)}\PY{p}{)}
+             \PY{n}{net\PYZus{}saving\PYZus{}mat}\PY{p}{[}\PY{n}{max\PYZus{}i}\PY{p}{,}\PY{n}{max\PYZus{}j}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1} 
+             \PY{n}{t\PYZus{}mat} \PY{o}{=} \PY{n}{change\PYZus{}t\PYZus{}mat}\PY{p}{(}\PY{n}{t\PYZus{}mat}\PY{p}{,}\PY{n}{max\PYZus{}i}\PY{p}{,}\PY{n}{max\PYZus{}j}\PY{p}{)}
+             \PY{n}{adjacency} \PY{o}{=} \PY{n}{make\PYZus{}adjacency\PYZus{}mat}\PY{p}{(}\PY{n}{t\PYZus{}mat}\PY{p}{)}
+             
+             
+             \PY{k}{return} \PY{n}{t\PYZus{}mat}\PY{p}{,} \PY{n}{adjacency}\PY{p}{,} \PY{n}{net\PYZus{}saving\PYZus{}mat} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{def} \PY{n+nf}{make\PYZus{}adjacency\PYZus{}mat}\PY{p}{(}\PY{n}{t\PYZus{}mat}\PY{p}{)}\PY{p}{:} 
+            
+            \PY{n}{adjacency} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{t\PYZus{}mat}\PY{p}{)}
+            \PY{n}{adjacency\PYZus{}t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{n}{adjacency}\PY{p}{)}
+            \PY{n}{adjacency} \PY{o}{=} \PY{n}{adjacency} \PY{o}{+} \PY{n}{adjacency\PYZus{}t}
+            
+            \PY{k}{return} \PY{n}{adjacency}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{def} \PY{n+nf}{change\PYZus{}t\PYZus{}mat}\PY{p}{(}\PY{n}{t\PYZus{}mat}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{)}\PY{p}{:} 
+            \PY{c+c1}{\PYZsh{}initialize }
+            \PY{n}{tmp\PYZus{}t\PYZus{}mat} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{t\PYZus{}mat}\PY{p}{)}  
+            
+            \PY{c+c1}{\PYZsh{}change}
+            \PY{n}{tmp\PYZus{}t\PYZus{}mat}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{l+m+mi}{1}
+            \PY{n}{tmp\PYZus{}t\PYZus{}mat}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{l+m+mi}{1}
+            \PY{n}{tmp\PYZus{}t\PYZus{}mat}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1} 
+            \PY{c+c1}{\PYZsh{}print(\PYZdq{}t\PYZus{}mat:\PYZob{}\PYZcb{}\PYZdq{}.format(t\PYZus{}mat))}
+            \PY{c+c1}{\PYZsh{}print(\PYZdq{}tmp\PYZus{}t\PYZus{}mat:\PYZob{}\PYZcb{}\PYZdq{}.format(tmp\PYZus{}t\PYZus{}mat))}
+            
+            \PY{k}{return} \PY{n}{tmp\PYZus{}t\PYZus{}mat}   
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} constraint2}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{def} \PY{n+nf}{check\PYZus{}routes}\PY{p}{(}\PY{n}{adjacency}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{}t\PYZus{}mat의 모든 routes를 받아와서, 각 route에 i랑 j가 동시에 포함되어 있는지 검사 }
+            \PY{n}{available\PYZus{}flag} \PY{o}{=} \PY{k+kc}{True} \PY{c+c1}{\PYZsh{}현재 존재하는 routes상에서 존재하지 않아서, 삽입 가능하다 }
+            
+            \PY{n}{routes} \PY{o}{=} \PY{n}{search\PYZus{}all\PYZus{}route}\PY{p}{(}\PY{n}{adjacency}\PY{p}{)} 
+            
+            \PY{k}{for} \PY{n}{route\PYZus{}idx}\PY{p}{,} \PY{n}{route} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{routes}\PY{p}{)}\PY{p}{:}    
+                \PY{k}{if} \PY{p}{(}\PY{n}{i} \PY{o+ow}{in} \PY{n}{route}\PY{p}{)} \PY{o+ow}{and} \PY{p}{(}\PY{n}{j} \PY{o+ow}{in} \PY{n}{route}\PY{p}{)}\PY{p}{:}  
+                    \PY{n}{available\PYZus{}flag} \PY{o}{=} \PY{k+kc}{False}  
+            
+            \PY{k}{return} \PY{n}{available\PYZus{}flag} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k}{def} \PY{n+nf}{search\PYZus{}all\PYZus{}route}\PY{p}{(}\PY{n}{adjacency}\PY{p}{)}\PY{p}{:}  
+             \PY{c+c1}{\PYZsh{}해당 t\PYZus{}mat의 모든 routes를 담은 list를 리턴해주는 함수}
+             \PY{c+c1}{\PYZsh{}ex) return [[0,1,0],[0,2,3,0],[0,4,0]]  }
+             
+             \PY{n}{routes} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{visited} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{adjacency}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}새로도입 \PYZhy{}\PYZgt{} route구할 때만 0번 노드 방문기록 초기화 }
+         
+             
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{adjacency}\PY{p}{)}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{}0빼고 탐색 }
+                 \PY{n}{stack} \PY{o}{=} \PY{p}{[}\PY{p}{]} 
+                 \PY{n}{stack}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)} 
+                 \PY{n}{visited}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{n}{route} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{k}{while}\PY{p}{(}\PY{n}{stack}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{cur\PYZus{}node} \PY{o}{=} \PY{n}{stack}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{p}{)}
+                     \PY{n}{visited}\PY{p}{[}\PY{n}{cur\PYZus{}node}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+                     \PY{n}{route} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{cur\PYZus{}node}\PY{p}{]}
+                     \PY{c+c1}{\PYZsh{}print(route)  }
+                     \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{adjacency}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                         \PY{k}{if}\PY{p}{(}\PY{n}{adjacency}\PY{p}{[}\PY{n}{cur\PYZus{}node}\PY{p}{,} \PY{n}{col}\PY{p}{]} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{)} \PY{o+ow}{and} \PY{p}{(}\PY{n}{visited}\PY{p}{[}\PY{n}{col}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                             \PY{n}{stack}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{col}\PY{p}{)}  
+                             \PY{k}{break} 
+                 \PY{k}{if} \PY{n}{route} \PY{o}{!=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o+ow}{and} \PY{n}{adjacency}\PY{p}{[}\PY{n}{route}\PY{p}{[}\PY{n+nb}{len}\PY{p}{(}\PY{n}{route}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}
+                     \PY{n}{route} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                     \PY{n}{routes} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{route}\PY{p}{]}
+                 
+             \PY{c+c1}{\PYZsh{}print(routes)}
+             \PY{k}{return} \PY{n}{routes}   
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} constraint 3}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k}{def} \PY{n+nf}{check\PYZus{}capacity}\PY{p}{(}\PY{n}{adjacency}\PY{p}{,} \PY{n}{demand}\PY{p}{,} \PY{n}{Q}\PY{p}{)}\PY{p}{:}  
+             \PY{c+c1}{\PYZsh{}t\PYZus{}mat이 변경되었을 때 capacity 조건을 만족하는가?  }
+             
+             \PY{n}{flag} \PY{o}{=} \PY{k+kc}{True} \PY{c+c1}{\PYZsh{}capacity 다 만족하고 삽입가능하다 \PYZhy{}\PYZgt{} True}
+             \PY{c+c1}{\PYZsh{}receive routes list of all routes  }
+             \PY{n}{routes} \PY{o}{=} \PY{n}{search\PYZus{}all\PYZus{}route}\PY{p}{(}\PY{n}{adjacency}\PY{p}{)}   
+             
+             \PY{c+c1}{\PYZsh{}check one above routes exceed capacity or not }
+             \PY{k}{for} \PY{n}{route\PYZus{}idx}\PY{p}{,} \PY{n}{route} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{routes}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{}print(route)}
+                 \PY{n}{current\PYZus{}capacity} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{route}\PY{p}{)}\PY{p}{)}\PY{p}{:}  
+                     \PY{c+c1}{\PYZsh{}print(route[i])}
+                     \PY{n}{current\PYZus{}capacity} \PY{o}{+}\PY{o}{=} \PY{n}{demand}\PY{p}{[}\PY{n}{route}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}
+                 \PY{c+c1}{\PYZsh{}print(current\PYZus{}capacity)}
+                 \PY{k}{if} \PY{n}{current\PYZus{}capacity} \PY{o}{\PYZgt{}} \PY{n}{Q}\PY{p}{:}
+                     \PY{c+c1}{\PYZsh{}print(current\PYZus{}capacity)}
+                     \PY{n}{flag} \PY{o}{=} \PY{k+kc}{False}
+                     \PY{k}{return} \PY{n}{flag} 
+             
+             \PY{k}{return} \PY{n}{flag} 
+\end{Verbatim}
+
+
+    \textbf{Example}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} step1, (step2 + step4)  }
+         \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{5} \PY{c+c1}{\PYZsh{} number of nodes  }
+         \PY{n}{Q} \PY{o}{=} \PY{l+m+mi}{10} \PY{c+c1}{\PYZsh{}각 vehicle capacity  }
+         \PY{n}{half\PYZus{}mat}\PY{p}{,} \PY{n}{t\PYZus{}mat}\PY{p}{,} \PY{n}{demand} \PY{o}{=} \PY{n}{initialize}\PY{p}{(}\PY{n}{N}\PY{p}{)}  
+         \PY{n}{net\PYZus{}saving\PYZus{}mat} \PY{o}{=} \PY{n}{calculate\PYZus{}net\PYZus{}saving}\PY{p}{(}\PY{n}{half\PYZus{}mat}\PY{p}{,} \PY{n}{N}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{half\PYZus{}mat}\PY{p}{)}    
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{t\PYZus{}mat}\PY{p}{)}    
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{demand}\PY{p}{)} 
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{net\PYZus{}saving\PYZus{}mat}\PY{p}{)}   
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{t\PYZus{}mat}\PY{p}{)}
+         \PY{n}{adjacency} \PY{o}{=} \PY{n}{make\PYZus{}adjacency\PYZus{}mat}\PY{p}{(}\PY{n}{t\PYZus{}mat}\PY{p}{)}
+         \PY{n}{routes} \PY{o}{=} \PY{n}{search\PYZus{}all\PYZus{}route}\PY{p}{(}\PY{n}{adjacency}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{routes}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[-1 10 12 15  7]
+ [-1 -1  5 12 11]
+ [-1 -1 -1  7  9]
+ [-1 -1 -1 -1 10]
+ [-1 -1 -1 -1 -1]]
+[[0 2 2 2 2]
+ [0 0 0 0 0]
+ [0 0 0 0 0]
+ [0 0 0 0 0]
+ [0 0 0 0 0]]
+[0 7 2 5 3]
+[[-1 -1 -1 -1 -1]
+ [-1 -1 17 13  6]
+ [-1 -1 -1 20 10]
+ [-1 -1 -1 -1 12]
+ [-1 -1 -1 -1 -1]]
+[[0 2 2 2 2]
+ [0 0 0 0 0]
+ [0 0 0 0 0]
+ [0 0 0 0 0]
+ [0 0 0 0 0]]
+[[0, 1, 0], [0, 2, 0], [0, 3, 0], [0, 4, 0]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{t\PYZus{}mat}\PY{p}{,} \PY{n}{adjacency}\PY{p}{,} \PY{n}{net\PYZus{}saving\PYZus{}mat} \PY{o}{=} \PY{n}{max\PYZus{}net\PYZus{}saving}\PY{p}{(}\PY{n}{half\PYZus{}mat}\PY{p}{,} \PY{n}{t\PYZus{}mat}\PY{p}{,} \PY{n}{net\PYZus{}saving\PYZus{}mat}\PY{p}{,} \PY{n}{demand}\PY{p}{,} \PY{n}{N}\PY{p}{,}  \PY{n}{Q}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{t\PYZus{}mat}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{adjacency}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{net\PYZus{}saving\PYZus{}mat}\PY{p}{)}
+         \PY{n}{routes} \PY{o}{=} \PY{n}{search\PYZus{}all\PYZus{}route}\PY{p}{(}\PY{n}{adjacency}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{routes}\PY{p}{)}  
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+max\_i: 2
+max\_j: 3
+[[0 2 1 1 2]
+ [0 0 0 0 0]
+ [0 0 0 1 0]
+ [0 0 0 0 0]
+ [0 0 0 0 0]]
+[[0 2 1 1 2]
+ [2 0 0 0 0]
+ [1 0 0 1 0]
+ [1 0 1 0 0]
+ [2 0 0 0 0]]
+[[-1 -1 -1 -1 -1]
+ [-1 -1 17 13  6]
+ [-1 -1 -1 -1 10]
+ [-1 -1 -1 -1 12]
+ [-1 -1 -1 -1 -1]]
+[[0, 1, 0], [0, 2, 3, 0], [0, 4, 0]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{t\PYZus{}mat}\PY{p}{,} \PY{n}{adjacency}\PY{p}{,} \PY{n}{net\PYZus{}saving\PYZus{}mat} \PY{o}{=} \PY{n}{max\PYZus{}net\PYZus{}saving}\PY{p}{(}\PY{n}{half\PYZus{}mat}\PY{p}{,} \PY{n}{t\PYZus{}mat}\PY{p}{,} \PY{n}{net\PYZus{}saving\PYZus{}mat}\PY{p}{,} \PY{n}{demand}\PY{p}{,} \PY{n}{N}\PY{p}{,}  \PY{n}{Q}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{t\PYZus{}mat}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{adjacency}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{net\PYZus{}saving\PYZus{}mat}\PY{p}{)}
+         \PY{n}{routes} \PY{o}{=} \PY{n}{search\PYZus{}all\PYZus{}route}\PY{p}{(}\PY{n}{adjacency}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{routes}\PY{p}{)}  
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+max\_i: 3
+max\_j: 4
+[[0 2 1 0 1]
+ [0 0 0 0 0]
+ [0 0 0 1 0]
+ [0 0 0 0 1]
+ [0 0 0 0 0]]
+[[0 2 1 0 1]
+ [2 0 0 0 0]
+ [1 0 0 1 0]
+ [0 0 1 0 1]
+ [1 0 0 1 0]]
+[[-1 -1 -1 -1 -1]
+ [-1 -1 17 13  6]
+ [-1 -1 -1 -1 10]
+ [-1 -1 -1 -1 -1]
+ [-1 -1 -1 -1 -1]]
+[[0, 1, 0], [0, 2, 3, 4, 0]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{t\PYZus{}mat}\PY{p}{,} \PY{n}{adjacency}\PY{p}{,} \PY{n}{net\PYZus{}saving\PYZus{}mat} \PY{o}{=} \PY{n}{max\PYZus{}net\PYZus{}saving}\PY{p}{(}\PY{n}{half\PYZus{}mat}\PY{p}{,} \PY{n}{t\PYZus{}mat}\PY{p}{,} \PY{n}{net\PYZus{}saving\PYZus{}mat}\PY{p}{,} \PY{n}{demand}\PY{p}{,} \PY{n}{N}\PY{p}{,}  \PY{n}{Q}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{t\PYZus{}mat}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{adjacency}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{net\PYZus{}saving\PYZus{}mat}\PY{p}{)}
+         \PY{n}{routes} \PY{o}{=} \PY{n}{search\PYZus{}all\PYZus{}route}\PY{p}{(}\PY{n}{adjacency}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{routes}\PY{p}{)}  
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+max\_i: -1
+max\_j: -1
+[[ 0  2  1  0 -1]
+ [ 0  0  0  0  0]
+ [ 0  0  0  1  0]
+ [ 0  0  0  0  1]
+ [ 0  0  0  0  1]]
+[[ 0  2  1  0 -1]
+ [ 2  0  0  0  0]
+ [ 1  0  0  1  0]
+ [ 0  0  1  0  1]
+ [-1  0  0  1  2]]
+[[-1 -1 -1 -1 -1]
+ [-1 -1 17 13  6]
+ [-1 -1 -1 -1 10]
+ [-1 -1 -1 -1 -1]
+ [-1 -1 -1 -1 -1]]
+[[0, 1, 0], [0, 2, 3, 4, 0]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{t\PYZus{}mat}\PY{p}{,} \PY{n}{adjacency}\PY{p}{,} \PY{n}{net\PYZus{}saving\PYZus{}mat} \PY{o}{=} \PY{n}{max\PYZus{}net\PYZus{}saving}\PY{p}{(}\PY{n}{half\PYZus{}mat}\PY{p}{,} \PY{n}{t\PYZus{}mat}\PY{p}{,} \PY{n}{net\PYZus{}saving\PYZus{}mat}\PY{p}{,} \PY{n}{demand}\PY{p}{,} \PY{n}{N}\PY{p}{,}  \PY{n}{Q}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{t\PYZus{}mat}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{adjacency}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{net\PYZus{}saving\PYZus{}mat}\PY{p}{)}
+         \PY{n}{routes} \PY{o}{=} \PY{n}{search\PYZus{}all\PYZus{}route}\PY{p}{(}\PY{n}{adjacency}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{routes}\PY{p}{)}  
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+max\_i: -1
+max\_j: -1
+[[ 0  2  1  0 -3]
+ [ 0  0  0  0  0]
+ [ 0  0  0  1  0]
+ [ 0  0  0  0  1]
+ [ 0  0  0  0  2]]
+[[ 0  2  1  0 -3]
+ [ 2  0  0  0  0]
+ [ 1  0  0  1  0]
+ [ 0  0  1  0  1]
+ [-3  0  0  1  4]]
+[[-1 -1 -1 -1 -1]
+ [-1 -1 17 13  6]
+ [-1 -1 -1 -1 10]
+ [-1 -1 -1 -1 -1]
+ [-1 -1 -1 -1 -1]]
+[[0, 1, 0], [0, 2, 3, 4, 0]]
+
+    \end{Verbatim}
+
+    \textbf{test}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}case1}
+        \PY{n}{adjacency} \PY{o}{=} \PY{n}{np}\PY{o}{.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{c+c1}{\PYZsh{}case2 }
+         \PY{n}{adjacency} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{routes} \PY{o}{=} \PY{n}{search\PYZus{}all\PYZus{}route}\PY{p}{(}\PY{n}{adjacency}\PY{p}{)} 
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{routes}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[0, 1, 4, 3, 2, 0]]
+[[0, 1, 4, 3, 2, 0]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{c+c1}{\PYZsh{}case3}
+          \PY{n}{adjacency} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+          \PY{n}{routes} \PY{o}{=} \PY{n}{search\PYZus{}all\PYZus{}route}\PY{p}{(}\PY{n}{adjacency}\PY{p}{)} 
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{routes}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[0, 1, 2, 4, 0], [0, 3, 0]]
+[[0, 1, 2, 4, 0], [0, 3, 0]]
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
