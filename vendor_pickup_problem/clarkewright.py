@@ -38,6 +38,8 @@ def calculate_net_saving(half_mat, N):
     # 예외처리 필수 
     
     net_saving_mat = np.full((N,N),-1)   
+    net_saving_mat = np.array(net_saving_mat, dtype = "float64")
+    
     
     for i in range(N):
         for j in range(i,N): 
@@ -98,8 +100,8 @@ def max_net_saving(half_mat, t_mat, net_saving_mat, demand, is_constraint,  Q):
             max_net_saving = net_saving_mat[i,j]
     
     # t_mat과 net_saving_mat을 변형
-    print("max_i: {}".format(max_i))
-    print("max_j: {}".format(max_j))
+    #print("max_i: {}".format(max_i))
+    #print("max_j: {}".format(max_j))
     net_saving_mat[max_i,max_j] = -1 
     t_mat = change_t_mat(t_mat,max_i,max_j)
     adjacency = make_adjacency_mat(t_mat)
@@ -161,7 +163,7 @@ def search_all_route(adjacency):
         route = []
         
         while(stack):
-            cur_node = stack.pop()
+            cur_node = stack.pop()  
             visited[cur_node] = 1  
             route += [cur_node]
             #print(route)  
@@ -213,10 +215,10 @@ def calculate_cost(routes, half_mat):
             if changed_half_mat[i,j] == -1:
                 changed_half_mat[i,j] = 0
     
-    print(changed_half_mat)
+    #print(changed_half_mat)
     
     total_mat = changed_half_mat + np.transpose(changed_half_mat) 
-    print(total_mat)
+    #print(total_mat)
     #routes에 따라서 cost 계산
     total_cost = 0
     
