@@ -121,15 +121,16 @@ def create_schedule(alp, P, n_max, n_min):
 
 def to_half_mat_by_day(full_mat, day):    
     #요일별로 full matrix 잘라서 half_matrix 형태로 바꿔주기  
+    #day는 각 요일에 방문해야 하는 vendor number을 나타낸 1차원 벡터형태 리스트 
     # ex) half_mat = np.array([[-1,10,12,15,7],[-1,-1,5,12,11],[-1,-1,-1,7,9],[-1,-1,-1,-1,10],[-1,-1,-1,-1,-1]])
     
    
     #cut by indices
     indices = deepcopy(day) 
     indices.insert(0,0)
-    indices = np.array(indices)
-    #print(indices)
-    tmp_mat = np.copy(full_mat[indices]) #cut row
+    indices = np.array(indices)   
+    #print(indices)  
+    tmp_mat = np.copy(full_mat[indices]) #cut row  
     tmp_mat = np.copy(tmp_mat[:,indices]) #cut column
     
     #change to half matrix 
@@ -147,7 +148,7 @@ def to_half_mat_by_day(full_mat, day):
 
 ### function_ver 
 
-def calculate_total_week_cost(Mon, Tue, Wed, Thu, Fri, full_mat):
+def calculate_total_week_cost(Mon, Tue, Wed, Thu, Fri, full_mat):   
 # 요일별로 CW 돌려서 반 최적의 routes 뽑아내야함 
 # full matrix에서 step4에서 나온 요일별 스케줄 이용해서 자른 다음에 half_mat으로 바꿔서 넣어줘야 
 # to_half_mat_by_day에서 출발노드인 0번 추가해주어야  
@@ -160,10 +161,10 @@ def calculate_total_week_cost(Mon, Tue, Wed, Thu, Fri, full_mat):
     for day_idx, day in enumerate(schedules):
 
         half_mat_day = to_half_mat_by_day(full_mat, day)  #from vendorpickup.py 
-        #print("{}'s must visit vendor from zero:{}".format(names[day_idx], day))  #list not changed! (by using deepcopy)
-        _, t_mat, demand, is_constraint = initialize(len(half_mat_day), False) #from clarkewright.py  
-        net_saving_mat = calculate_net_saving(half_mat_day, len(half_mat_day)) #from clarkewright.py  
-
+        #print("{}'s must visit vendor from zero:{}".format(names[day_idx], day))  #list not changed! (by using deepcopy)   
+        _, t_mat, demand, is_constraint = initialize(len(half_mat_day), False) #from clarkewright.py    
+        net_saving_mat = calculate_net_saving(half_mat_day, len(half_mat_day)) #from clarkewright.py     
+        
         while(True):
             t_mat, adjacency, net_saving_mat, cells= max_net_saving(half_mat_day, t_mat, net_saving_mat, demand, is_constraint,  12345)
             routes = search_all_route(adjacency) 
